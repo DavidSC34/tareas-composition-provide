@@ -1,20 +1,30 @@
 <template>
-<h1>App Tareas</h1>
-<tarea-form />
-<p>  {{tareas}}</p>
+  <h1>App Tareas</h1>
+      <tarea-form />
+      <tarea-item
+        v-for="tarea in tareas" :key="tarea.id"
+        :tarea="tarea"
+      />
+      <div class="alert alert-dark mt-3" v-if="tareas.length === 0">
+        Sin tareas pendientes, hurray!!
+      </div>
+  <p>  {{tareas}}</p>
 
 </template>
 
 <script>
-import { ref } from "vue";
+import { provide, ref } from "vue";
 import TareaForm from './TareaForm.vue';
+import TareaItem from './TareaItem.vue';
 export default {
     components:{
-            TareaForm
+            TareaForm,
+            TareaItem
     },
   setup(){
   
     const tareas = ref ([]);
+    provide('tareas',tareas);
 
 
       return {tareas}
